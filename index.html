@@ -1,55 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Open Day Responses</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Day Travel Carbon Footprint</title>
   <style>
+    :root {
+      --bg: #f4f7f1;
+      --panel: #ffffff;
+      --primary: #2e7d32;
+      --primary-dark: #1b5e20;
+      --accent: #a5d6a7;
+      --text: #1e2a24;
+      --muted: #587066;
+      --border: #dfe8df;
+      --shadow: 0 12px 28px rgba(24, 52, 35, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
     body {
-      max-width: 1100px;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #edf5ed 0%, #f9faf7 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 24px;
-      font-family: Arial, sans-serif;
-      color: #222;
+      padding: 32px 20px 60px;
+    }
+
+    .hero {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 28px 30px;
+      margin-bottom: 28px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: #e8f5e9;
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      border-radius: 999px;
+      margin-bottom: 18px;
     }
 
     h1 {
-      margin-bottom: 8px;
+      margin: 0 0 14px;
+      font-size: clamp(2.2rem, 3vw, 3.3rem);
+      line-height: 1.1;
+      color: var(--text);
     }
 
-    .sheet-container {
-      width: 100%;
-      overflow: hidden;
+    .subtitle {
+      margin: 0;
+      max-width: 760px;
+      font-size: 1.08rem;
+      color: var(--muted);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      background: linear-gradient(180deg, #f4faf5 0%, #eef7ef 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.8rem;
+      color: var(--primary-dark);
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      font-size: 0.96rem;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1.9fr;
+      gap: 28px;
+      margin-top: 28px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 1.5rem;
+      color: var(--text);
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    li + li {
+      margin-top: 10px;
+    }
+
+    .mode-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .mode-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 14px;
+      background: #f8faf8;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .mode-item span {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .mode-item small {
+      color: var(--muted);
+    }
+
+    .iframe-wrap {
+      margin-top: 30px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .iframe-wrap h2 {
+      margin-bottom: 12px;
     }
 
     iframe {
       display: block;
       width: 100%;
-      height: 600px;
+      height: 630px;
       border: 0;
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    a.button {
+      display: inline-block;
+      margin-top: 18px;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      transition: background 0.2s ease;
+    }
+
+    a.button:hover {
+      background: var(--primary-dark);
+    }
+
+    @media (max-width: 760px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 22px 18px;
+      }
+
+      .panel,
+      .iframe-wrap {
+        padding: 18px;
+      }
     }
   </style>
 </head>
 <body>
-  <main>
-    <h1>Open Day Responses</h1>
-    <p>View the responses below.</p>
+  <div class="container">
+    <section class="hero">
+      <div class="eyebrow">Open Day Project</div>
+      <h1>Travel & Carbon Footprint Survey</h1>
+      <p class="subtitle">
+        This project explores how students and visitors travel to school and how much carbon dioxide they produce.
+        The results help us understand travel habits, compare transport choices, and think about more sustainable ways to move.
+      </p>
 
-    <div class="sheet-container">
+      <div class="stats">
+        <div class="stat">
+          <strong>Walking</strong>
+          <span>Zero emissions</span>
+        </div>
+        <div class="stat">
+          <strong>Public Transport</strong>
+          <span>Lower carbon impact</span>
+        </div>
+        <div class="stat">
+          <strong>Private Car</strong>
+          <span>Higher emissions</span>
+        </div>
+        <div class="stat">
+          <strong>EV</strong>
+          <span>Lower than petrol/diesel</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>Project aim</h2>
+        <ul>
+          <li>Measure how people travel to school.</li>
+          <li>Compare transport choices and emissions.</li>
+          <li>Encourage more sustainable everyday travel habits.</li>
+          <li>Collect anonymous data for analysis and discussion.</li>
+        </ul>
+
+        <a class="button" href="https://docs.google.com/forms/u/0/" target="_blank" rel="noopener noreferrer">Submit a response</a>
+      </div>
+
+      <div class="panel">
+        <h2>Common transport modes</h2>
+        <div class="mode-list">
+          <div class="mode-item">
+            <span>Walking / Cycling</span>
+            <small>Very low emissions</small>
+          </div>
+          <div class="mode-item">
+            <span>MTR / Subway</span>
+            <small>Efficient public transport</small>
+          </div>
+          <div class="mode-item">
+            <span>Bus</span>
+            <small>Lower emissions than private cars</small>
+          </div>
+          <div class="mode-item">
+            <span>Private Car / Taxi</span>
+            <small>Higher impact, especially petrol/diesel</small>
+          </div>
+          <div class="mode-item">
+            <span>Electric Vehicle</span>
+            <small>Cleaner alternative to fuel cars</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="iframe-wrap">
+      <h2>Live response sheet</h2>
       <iframe
         src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRDupGqClDxtpDVMcPgM4oPKoZMK9IhaCeU-q5ejqodxIhG_Ak6aqAApXXBJgI8ZeK3quuGsI2hNVDz/pubhtml?widget=true&amp;headers=false"
-        title="Published responses spreadsheet"
+        title="Open Day Travel Carbon Footprint Responses"
         loading="lazy">
       </iframe>
-    </div>
-
-    <p>
-      <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRDupGqClDxtpDVMcPgM4oPKoZMK9IhaCeU-q5ejqodxIhG_Ak6aqAApXXBJgI8ZeK3quuGsI2hNVDz/pubhtml?widget=true&amp;headers=false"
-         target="_blank"
-         rel="noopener noreferrer">
-        Open the spreadsheet in a new tab
-      </a>
-    </p>
-  </main>
+      <div class="note">This is a public view of the survey responses.</div>
+    </section>
+  </div>
 </body>
 </html>
