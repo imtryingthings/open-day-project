@@ -1,8 +1,55 @@
-<iframe
-  src="https://docs.google.com/spreadsheets/d/1k7lwLp-4PpO7zjcqJ9FkcLcfDOAAnTRie9jCABRu-LU/edit?usp=sharing"
-  width="100%"
-  height="600"
-  title="Responses"
-  frameborder="0">
-</iframe>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open Day Responses</title>
+  <style>
+    body {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+      font-family: Arial, sans-serif;
+      color: #222;
+    }
 
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    .sheet-container {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 600px;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Open Day Responses</h1>
+    <p>View the responses below.</p>
+
+    <div class="sheet-container">
+      <iframe
+        src="https://docs.google.com/spreadsheets/d/1k7lwLp-4PpO7zjcqJ9FkcLcfDOAAnTRie9jCABRu-LU/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
+        title="Published responses spreadsheet"
+        loading="lazy">
+      </iframe>
+    </div>
+
+    <p>
+      <a href="https://docs.google.com/spreadsheets/d/1k7lwLp-4PpO7zjcqJ9FkcLcfDOAAnTRie9jCABRu-LU/pubhtml"
+         target="_blank"
+         rel="noopener noreferrer">
+        Open the spreadsheet in a new tab
+      </a>
+    </p>
+  </main>
+</body>
+</html>
