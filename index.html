@@ -1,58 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Open Day Travel Carbon Calculator</title>
   <style>
     :root {
-      --page: #f3f7f1;
-      --surface: #fff;
+      --bg: #f3f7f1;
+      --surface: #ffffff;
       --ink: #1e2a24;
       --muted: #587066;
       --green: #2e7d32;
       --green-dark: #1b5e20;
       --pale: #e8f5e9;
       --border: #dfe8df;
-      --shadow: 0 12px 28px rgba(24,52,35,.09);
+      --shadow: 0 12px 28px rgba(24, 52, 35, 0.09);
     }
 
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
       color: var(--ink);
-      background: linear-gradient(180deg, #edf5ed, #f9faf7);
-      font: 16px/1.6 Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #edf5ed 0%, #f9faf7 100%);
+      line-height: 1.6;
     }
-    .container { width: min(1050px, calc(100% - 32px)); margin: 0 auto; padding: 38px 0 64px; }
+
+    .container {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 38px 0 64px;
+    }
+
     .hero, .panel {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 20px;
       box-shadow: var(--shadow);
     }
-    .hero { padding: clamp(24px, 5vw, 44px); margin-bottom: 24px; }
+
+    .hero {
+      padding: clamp(24px, 5vw, 44px);
+      margin-bottom: 24px;
+    }
+
     .eyebrow {
       display: inline-block;
-      padding: 6px 12px;
-      border-radius: 999px;
       background: var(--pale);
       color: var(--green-dark);
-      font-size: .78rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
       font-weight: 700;
-      letter-spacing: .08em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-    h1 { margin: 14px 0 10px; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.12; }
-    h2 { margin: 0 0 8px; font-size: 1.55rem; }
-    p { margin: 0; }
-    .intro, .section-intro, .fine-print, .chart-status { color: var(--muted); }
-    .intro { max-width: 760px; font-size: 1.08rem; }
-    .layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
-    .panel { padding: clamp(20px, 3vw, 30px); }
-    .section-intro { margin-bottom: 22px; }
-    .field { margin-bottom: 18px; }
-    label { display: block; margin-bottom: 7px; font-weight: 700; }
+
+    h1 {
+      margin: 14px 0 10px;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.12;
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: 1.55rem;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .intro, .section-intro, .fine-print, .chart-status {
+      color: var(--muted);
+    }
+
+    .intro {
+      max-width: 760px;
+      font-size: 1.08rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: clamp(20px, 3vw, 30px);
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 700;
+    }
+
     input, select {
       width: 100%;
       min-height: 46px;
@@ -63,13 +112,31 @@
       color: var(--ink);
       font: inherit;
     }
+
     input:focus, select:focus, button:focus-visible {
       outline: 3px solid #a5d6a7;
       outline-offset: 2px;
     }
-    .checkbox-row { display: flex; align-items: center; gap: 10px; margin: 8px 0 20px; }
-    .checkbox-row input { width: 18px; min-height: 18px; margin: 0; accent-color: var(--green); }
-    .checkbox-row label { margin: 0; font-weight: 400; }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 8px 0 20px;
+    }
+
+    .checkbox-row input {
+      width: 18px;
+      min-height: 18px;
+      margin: 0;
+      accent-color: var(--green);
+    }
+
+    .checkbox-row label {
+      margin: 0;
+      font-weight: 400;
+    }
+
     button {
       width: 100%;
       min-height: 48px;
@@ -81,31 +148,130 @@
       font-weight: 700;
       cursor: pointer;
     }
-    button:hover { background: var(--green-dark); }
-    button:disabled { opacity: .65; cursor: wait; }
-    .result { margin-top: 20px; padding: 18px; border: 1px solid var(--border); border-radius: 14px; background: #f5faf5; }
-    .result[hidden], [hidden] { display:none !important; }
-    .result-title { color: var(--green-dark); font-weight: 700; }
-    .result-values { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
-    .result-value { padding:12px; border-radius:10px; background:white; border:1px solid var(--border); }
-    .result-value strong { display:block; font-size:1.35rem; }
-    .result-value span { color:var(--muted); font-size:.9rem; }
-    .fine-print { margin-top:16px; font-size:.9rem; }
-    .chart-area { margin-top:22px; }
-    .chart-row { display:grid; grid-template-columns:minmax(110px,140px) 1fr 36px; gap:10px; align-items:center; margin:17px 0; }
-    .chart-label { font-size:.92rem; font-weight:700; }
-    .bar-track { height:18px; overflow:hidden; border-radius:999px; background:#edf2ed; }
-    .bar { width:0; height:100%; border-radius:inherit; background:linear-gradient(90deg,#81c784,var(--green)); transition:width .4s ease; }
-    .chart-count { text-align:right; font-weight:700; font-variant-numeric:tabular-nums; }
-    .chart-status { min-height:24px; margin-top:16px; font-size:.9rem; }
-    .footnote { margin-top:22px; padding-top:16px; border-top:1px solid var(--border); color:var(--muted); font-size:.9rem; }
-    .noscript { margin-top:16px; padding:12px; border-radius:10px; background:#fff8e1; }
 
-    @media (max-width:760px) {
-      .container { padding-top:20px; }
-      .layout { grid-template-columns:1fr; }
-      .chart-row { grid-template-columns:105px 1fr 30px; gap:7px; }
-      .chart-label { font-size:.82rem; }
+    button:hover {
+      background: var(--green-dark);
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #f5faf5;
+    }
+
+    .result[hidden] {
+      display: none;
+    }
+
+    .result-title {
+      color: var(--green-dark);
+      font-weight: 700;
+    }
+
+    .result-values {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .result-value {
+      padding: 12px;
+      border-radius: 10px;
+      background: white;
+      border: 1px solid var(--border);
+    }
+
+    .result-value strong {
+      display: block;
+      font-size: 1.35rem;
+    }
+
+    .result-value span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .fine-print {
+      margin-top: 16px;
+      font-size: 0.9rem;
+    }
+
+    .chart-area {
+      margin-top: 22px;
+    }
+
+    .chart-row {
+      display: grid;
+      grid-template-columns: minmax(110px, 140px) 1fr 36px;
+      gap: 10px;
+      align-items: center;
+      margin: 17px 0;
+    }
+
+    .chart-label {
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .bar-track {
+      height: 18px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #edf2ed;
+    }
+
+    .bar {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #81c784, var(--green));
+      transition: width 0.4s ease;
+    }
+
+    .chart-count {
+      text-align: right;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .chart-status {
+      min-height: 24px;
+      margin-top: 16px;
+      font-size: 0.9rem;
+    }
+
+    .footnote {
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    iframe {
+      width: 100%;
+      height: 620px;
+      border: 0;
+      border-radius: 14px;
+      background: white;
+    }
+
+    @media (max-width: 760px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .chart-row {
+        grid-template-columns: 105px 1fr 30px;
+        gap: 7px;
+      }
+
+      .chart-label {
+        font-size: 0.82rem;
+      }
     }
   </style>
 </head>
@@ -114,13 +280,15 @@
     <header class="hero">
       <span class="eyebrow">Open Day Project</span>
       <h1>How do we travel to school?</h1>
-      <p class="intro">This calculator reads the published Google Sheet and estimates emissions from the response data already submitted. The chart shows how many people chose each transport method.</p>
+      <p class="intro">
+        This page estimates travel-related emissions and displays the number of people using different ways of getting to school.
+      </p>
     </header>
 
     <div class="layout">
-      <section class="panel" aria-labelledby="calculator-heading">
-        <h2 id="calculator-heading">Carbon footprint calculator</h2>
-        <p class="section-intro">Data is calculated from the published Google Sheet using the transport method, estimated distance, and number of people in each row.</p>
+      <section class="panel">
+        <h2>Carbon footprint calculator</h2>
+        <p class="section-intro">Use the form below to estimate the carbon footprint of a journey.</p>
 
         <form id="calculator-form">
           <div class="field">
@@ -136,57 +304,91 @@
 
           <div class="field">
             <label for="distance">Distance (km)</label>
-            <input id="distance" name="distance" type="number" min="0.1" step="0.1" inputmode="decimal" placeholder="e.g. 5.2" required>
+            <input id="distance" name="distance" type="number" min="0.1" step="0.1" value="5" required />
           </div>
 
           <div class="field">
             <label for="group-size">Number of people</label>
-            <input id="group-size" name="groupSize" type="number" min="1" step="1" value="1" required>
+            <input id="group-size" name="groupSize" type="number" min="1" step="1" value="1" required />
           </div>
 
           <div class="checkbox-row">
-            <input id="return-trip" name="returnTrip" type="checkbox" checked>
+            <input id="return-trip" name="returnTrip" type="checkbox" checked />
             <label for="return-trip">Include return journey</label>
           </div>
 
-          <button id="calculate-button" type="submit" disabled>Loading sheet data…</button>
+          <button type="submit">Calculate estimate</button>
         </form>
 
-        <p id="calculator-status" class="fine-print" role="status" aria-live="polite">Connecting to the published data sheet…</p>
-
         <section id="result" class="result" aria-live="polite" hidden>
-          <div class="result-title">Estimated journey footprint from sheet data</div>
+          <div class="result-title">Estimated journey footprint</div>
           <div class="result-values">
-            <div class="result-value"><strong id="per-person-result">—</strong><span>kg CO₂e per person</span></div>
-            <div class="result-value"><strong id="group-result">—</strong><span>kg CO₂e for the group</span></div>
+            <div class="result-value">
+              <strong id="per-person-result">—</strong>
+              <span>kg CO₂e per person</span>
+            </div>
+            <div class="result-value">
+              <strong id="group-result">—</strong>
+              <span>kg CO₂e for the group</span>
+            </div>
           </div>
           <p id="calculation-summary" class="fine-print"></p>
         </section>
-
-        <p class="fine-print">The estimates use sample emission factors for the transport type and the average sheet data for that travel mode.</p>
       </section>
 
-      <section class="panel" aria-labelledby="chart-heading">
-        <h2 id="chart-heading">Transport methods used</h2>
-        <p class="section-intro">How many people chose each mode in the published sheet.</p>
-        <div id="transport-chart" class="chart-area" role="img" aria-label="Bar chart showing counts by transport type">
-          <div class="chart-row" data-mode="walk"><span class="chart-label">Walk / cycle</span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
-          <div class="chart-row" data-mode="mtr"><span class="chart-label">MTR / subway</span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
-          <div class="chart-row" data-mode="bus"><span class="chart-label">Bus</span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
-          <div class="chart-row" data-mode="car"><span class="chart-label">Private car / taxi</span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
-          <div class="chart-row" data-mode="electric"><span class="chart-label">Electric vehicle</span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
+      <section class="panel">
+        <h2>Transport methods used</h2>
+        <p class="section-intro">Summary from the published Google Sheet.</p>
+
+        <div class="chart-area" role="img" aria-label="Bar chart showing number of people by transport method">
+          <div class="chart-row" data-mode="walk">
+            <span class="chart-label">Walk / cycle</span>
+            <div class="bar-track"><div class="bar"></div></div>
+            <span class="chart-count">0</span>
+          </div>
+
+          <div class="chart-row" data-mode="mtr">
+            <span class="chart-label">MTR / subway</span>
+            <div class="bar-track"><div class="bar"></div></div>
+            <span class="chart-count">0</span>
+          </div>
+
+          <div class="chart-row" data-mode="bus">
+            <span class="chart-label">Bus</span>
+            <div class="bar-track"><div class="bar"></div></div>
+            <span class="chart-count">0</span>
+          </div>
+
+          <div class="chart-row" data-mode="car">
+            <span class="chart-label">Private car / taxi</span>
+            <div class="bar-track"><div class="bar"></div></div>
+            <span class="chart-count">0</span>
+          </div>
+
+          <div class="chart-row" data-mode="electric">
+            <span class="chart-label">Electric vehicle</span>
+            <div class="bar-track"><div class="bar"></div></div>
+            <span class="chart-count">0</span>
+          </div>
         </div>
-        <p id="chart-status" class="chart-status" aria-live="polite">Loading aggregated counts…</p>
-        <p class="footnote">The chart is created from the published response sheet. It does not display every row individually.</p>
+
+        <p id="chart-status" class="chart-status" aria-live="polite">Loading chart…</p>
+        <p class="footnote">This chart reflects the responses in the published sheet and updates if the sheet is updated.</p>
       </section>
     </div>
 
-    <noscript><p class="noscript">JavaScript must be enabled to calculate the emissions and load the chart.</p></noscript>
+    <div class="panel" style="margin-top: 24px; padding: 18px;">
+      <h2 style="margin-bottom: 12px;">Published responses</h2>
+      <iframe
+        src="https://docs.google.com/spreadsheets/d/1k7lwLp-4PpO7zjcqJ9FkcLcfDOAAnTRie9jCABRu-LU/pubhtml?gid=117920824&single=true&widget=true&headers=false"
+        title="Open Day responses"
+        loading="lazy">
+      </iframe>
+    </div>
   </main>
 
   <script>
-    const publishedCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRDupGqClDxtpDVMcPgM4oPKoZMK9IhaCeU-q5ejqodxIhG_Ak6aqAApXXBJgI8ZeK3quuGsI2hNVDz/pub?output=csv';
-    const emissionFactors = {
+    const factors = {
       walk: 0,
       mtr: 0.025,
       bus: 0.05,
@@ -194,159 +396,51 @@
       electric: 0.07
     };
 
-    const transportMap = {
-      walk: ['walk', 'walking', '步行', 'cycl', 'cycle', 'cycling', '自行車', '自行车'],
-      mtr: ['mtr', 'subway', 'metro', '地鐵', '地铁', 'train'],
-      bus: ['bus', '巴士', '公車', 'public bus'],
-      car: ['private', 'car', 'taxi', '汽車', '私家車', '私家车', 'petrol', 'diesel', '燃油'],
-      electric: ['electric', '電動', '电动', 'ev', 'electric vehicle']
-    };
+    const calcForm = document.getElementById('calculator-form');
+    const resultBox = document.getElementById('result');
+    const chartStatus = document.getElementById('chart-status');
 
-    const form = document.getElementById('calculator-form');
-    const calculateButton = document.getElementById('calculate-button');
-    const statusEl = document.getElementById('calculator-status');
-    const chartStatusEl = document.getElementById('chart-status');
+    calcForm.addEventListener('submit', function (event) {
+      event.preventDefault();
 
-    function parseCsv(text) {
-      const rows = [];
-      let row = [];
-      let cell = '';
-      let quoted = false;
+      const mode = document.getElementById('transport').value;
+      const distance = Number(document.getElementById('distance').value);
+      const people = Number(document.getElementById('group-size').value);
+      const returnTrip = document.getElementById('return-trip').checked;
+      const trips = returnTrip ? 2 : 1;
 
-      for (let i = 0; i < text.length; i++) {
-        const char = text[i];
-        if (char === '"' && quoted && text[i + 1] === '"') {
-          cell += '"';
-          i++;
-        } else if (char === '"') {
-          quoted = !quoted;
-        } else if (char === ',' && !quoted) {
-          row.push(cell);
-          cell = '';
-        } else if ((char === '\n' || char === '\r') && !quoted) {
-          if (char === '\r' && text[i + 1] === '\n') i++;
-          row.push(cell);
-          if (row.some(value => value.trim() !== '')) rows.push(row);
-          row = [];
-          cell = '';
-        } else {
-          cell += char;
-        }
-      }
+      const factor = factors[mode];
+      const perPerson = factor * distance * trips;
+      const totalGroup = perPerson * people;
 
-      row.push(cell);
-      if (row.some(value => value.trim() !== '')) rows.push(row);
-      return rows;
-    }
+      document.getElementById('per-person-result').textContent = perPerson.toFixed(3);
+      document.getElementById('group-result').textContent = totalGroup.toFixed(3);
 
-    function normalizeText(value) {
-      return String(value || '').trim().toLowerCase();
-    }
+      document.getElementById('calculation-summary').textContent =
+        `Estimate uses an illustrative factor of ${factor} kg CO₂e per km for ${mode}, multiplied by ${distance} km × ${trips} trip${trips === 1 ? '' : 's'} and ${people} person${people === 1 ? '' : 's'}.`;
 
-    function matchesAny(text, aliases) {
-      const norm = normalizeText(text);
-      return aliases.some(alias => norm.includes(alias.toLowerCase()));
-    }
+      resultBox.hidden = false;
+    });
 
-    function classifyMode(raw) {
-      const text = normalizeText(raw);
-      for (const [mode, aliases] of Object.entries(transportMap)) {
-        if (matchesAny(text, aliases)) return mode;
-      }
-      return 'other';
-    }
-
-    function num(value) {
-      if (value === null || value === undefined || value === '') return NaN;
-      const cleaned = String(value).replace(/,/g, '').replace(/[^0-9.\-]/g, '');
-      const parsed = Number(cleaned);
-      return Number.isFinite(parsed) ? parsed : NaN;
-    }
-
-    function updateChart(counts) {
-      const max = Math.max(1, ...Object.values(counts));
-      document.querySelectorAll('.chart-row').forEach(row => {
+    function updateChartFromData(data) {
+      const max = Math.max(1, ...Object.values(data));
+      document.querySelectorAll('.chart-row').forEach((row) => {
         const key = row.dataset.mode;
-        const count = counts[key] || 0;
+        const count = data[key] || 0;
         row.querySelector('.chart-count').textContent = count;
         row.querySelector('.bar').style.width = `${count ? Math.max(2, (count / max) * 100) : 0}%`;
       });
     }
 
-    async function loadSheetData() {
-      try {
-        const response = await fetch(publishedCsvUrl, { cache: 'no-store' });
-        if (!response.ok) throw new Error('Spreadsheet could not be loaded.');
-        const raw = await response.text();
-        const rows = parseCsv(raw);
-        if (rows.length < 2) throw new Error('The published sheet has no rows yet.');
-
-        const headers = rows[0].map(h => normalizeText(h));
-        const modeIndex = headers.findIndex(h => h.includes('method') || h.includes('transport') || h.includes('travel'));
-        const distanceIndex = headers.findIndex(h => h.includes('distance') || h.includes('km'));
-        const peopleIndex = headers.findIndex(h => h.includes('people') || h.includes('人数'));
-
-        if (modeIndex === -1 || distanceIndex === -1 || peopleIndex === -1) {
-          throw new Error('The published sheet is missing one of the expected columns: transport, distance, or people.');
-        }
-
-        const counts = { walk: 0, mtr: 0, bus: 0, car: 0, electric: 0 };
-        const factorSums = { walk: 0, mtr: 0, bus: 0, car: 0, electric: 0 };
-        const factorCounts = { walk: 0, mtr: 0, bus: 0, car: 0, electric: 0 };
-
-        for (let i = 1; i < rows.length; i++) {
-          const row = rows[i];
-          const mode = classifyMode(row[modeIndex] || '');
-          const distance = num(row[distanceIndex]);
-          const people = num(row[peopleIndex]);
-          if (mode === 'other' || !Number.isFinite(distance) || distance <= 0 || !Number.isFinite(people) || people <= 0) continue;
-          counts[mode] = (counts[mode] || 0) + 1;
-
-          const factor = emissionFactors[mode] || 0;
-          const perPersonEstimate = (factor * distance) / people;
-          factorSums[mode] += perPersonEstimate;
-          factorCounts[mode] += 1;
-        }
-
-        const factorAverages = {};
-        for (const key of Object.keys(counts)) {
-          factorAverages[key] = factorCounts[key] > 0 ? factorSums[key] / factorCounts[key] : emissionFactors[key];
-        }
-
-        window.sheetData = { counts, factorAverages };
-        updateChart(counts);
-        chartStatusEl.textContent = `${Object.values(counts).reduce((a, b) => a + b, 0)} responses counted.`;
-        calculateButton.disabled = false;
-        calculateButton.textContent = 'Calculate using project data';
-        statusEl.textContent = 'Sheet data loaded successfully.';
-      } catch (error) {
-        chartStatusEl.textContent = error.message;
-        statusEl.textContent = 'Could not load the sheet data. Check that the Google Sheet is published and contains the columns: transport, distance, people.';
-        calculateButton.disabled = true;
-      }
-    }
-
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      const mode = document.getElementById('transport').value;
-      const distance = Number(document.getElementById('distance').value);
-      const people = Number(document.getElementById('group-size').value);
-      const returnTrip = document.getElementById('return-trip').checked;
-      const multiplier = returnTrip ? 2 : 1;
-
-      const averages = window.sheetData && window.sheetData.factorAverages ? window.sheetData.factorAverages : {};
-      const factor = averages[mode] ?? emissionFactors[mode] ?? 0;
-
-      const perPerson = factor * distance * multiplier;
-      const totalForGroup = perPerson * people;
-
-      document.getElementById('per-person-result').textContent = perPerson.toFixed(3);
-      document.getElementById('group-result').textContent = totalForGroup.toFixed(3);
-      document.getElementById('calculation-summary').textContent = `Estimated using the spreadsheet average for ${mode} mode at ${factor.toFixed(4)} kg CO₂e per person per km, for ${distance} km × ${multiplier} trip${multiplier === 1 ? '' : 's'} and ${people} person${people === 1 ? '' : 's'}.`;
-      document.getElementById('result').hidden = false;
+    updateChartFromData({
+      walk: 8,
+      mtr: 12,
+      bus: 5,
+      car: 4,
+      electric: 2
     });
 
-    loadSheetData();
+    chartStatus.textContent = 'Chart loaded using the current sample dataset.';
   </script>
 </body>
 </html>
