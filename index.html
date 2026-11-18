@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Read-only summary of Open Day travel survey results and estimated travel emissions.">
-  <title>Open Day Travel Survey — Results</title>
+  <meta name="description" content="開放日交通問卷的閱讀版統計及估算碳排放結果。">
+  <title>開放日交通問卷 — 結果 / Open Day Travel Survey — Results</title>
   <style>
     :root {
       --ink: #1e2a24;
@@ -21,7 +21,7 @@
       margin: 0;
       background: linear-gradient(180deg, #edf5ed, #f9faf7);
       color: var(--ink);
-      font: 16px/1.6 Arial, Helvetica, sans-serif;
+      font: 16px/1.6 Arial, "Microsoft JhengHei", "PingFang TC", sans-serif;
     }
     .container { width: min(1050px, calc(100% - 32px)); margin: 0 auto; padding: 38px 0 60px; }
     .hero, .panel, .metric {
@@ -51,10 +51,12 @@
     .metric { padding: 20px; }
     .metric strong { display: block; color: var(--green-dark); font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.2; }
     .metric span { display: block; margin-top: 6px; color: var(--muted); font-size: .92rem; }
+    .bilingual { display: block; }
+    .english { display: block; color: var(--muted); font-size: .78em; font-weight: 400; }
     .panel { padding: clamp(20px, 3vw, 28px); }
     .section-intro { margin: 0 0 20px; color: var(--muted); }
     .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
-    .chart-row { display: grid; grid-template-columns: minmax(105px, 145px) 1fr 54px; gap: 10px; align-items: center; margin: 18px 0; }
+    .chart-row { display: grid; grid-template-columns: minmax(105px, 165px) 1fr 54px; gap: 10px; align-items: center; margin: 18px 0; }
     .chart-label { font-size: .92rem; font-weight: 700; }
     .bar-track { height: 18px; overflow: hidden; border-radius: 999px; background: #edf2ed; }
     .bar { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #81c784, var(--green)); transition: width .4s ease; }
@@ -62,7 +64,7 @@
     .table-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; font-size: .95rem; }
     th, td { padding: 12px 10px; border-bottom: 1px solid var(--border); text-align: left; }
-    th { color: var(--muted); font-size: .82rem; letter-spacing: .03em; }
+    th { color: var(--muted); font-size: .82rem; }
     td:not(:first-child), th:not(:first-child) { text-align: right; }
     .status { min-height: 24px; margin-top: 18px; font-size: .9rem; }
     .note { margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--border); font-size: .88rem; }
@@ -72,7 +74,7 @@
       .container { padding-top: 20px; }
       .metrics { grid-template-columns: 1fr; gap: 12px; }
       .layout { grid-template-columns: 1fr; }
-      .chart-row { grid-template-columns: 100px 1fr 42px; gap: 7px; }
+      .chart-row { grid-template-columns: 110px 1fr 42px; gap: 7px; }
       .chart-label { font-size: .82rem; }
       th, td { padding: 10px 6px; font-size: .84rem; }
     }
@@ -81,63 +83,99 @@
 <body>
   <main class="container">
     <header class="hero">
-      <span class="eyebrow">Open Day Project</span>
-      <h1>How do we travel to school?</h1>
-      <p class="intro">A read-only summary of the travel survey. The statistics and estimated carbon footprint below are calculated from the published Google Sheet when this page loads; no form entries or individual response rows are shown.</p>
+      <span class="eyebrow">開放日計劃 / Open Day Project</span>
+      <h1>
+        我們以甚麼方式到校？
+        <span class="english">How do we travel to school?</span>
+      </h1>
+      <p class="intro">
+        此頁面是交通問卷的閱讀版摘要。以下統計資料及估算碳排放量會在載入頁面時直接由已發佈的 Google 試算表計算；本頁不會顯示個別回應內容。
+        <span class="english">This is a read-only summary of the travel survey. Statistics and estimated emissions are calculated from the published Google Sheet when this page loads; individual responses are not displayed.</span>
+      </p>
     </header>
 
-    <section class="metrics" aria-label="Survey overview">
-      <div class="metric"><strong id="people-total">—</strong><span>people represented in responses</span></div>
-      <div class="metric"><strong id="response-total">—</strong><span>valid survey responses</span></div>
-      <div class="metric"><strong id="emissions-total">—</strong><span>estimated kg CO₂e for reported trips</span></div>
+    <section class="metrics" aria-label="問卷概覽 / Survey overview">
+      <div class="metric">
+        <strong id="people-total">—</strong>
+        <span>回應中代表的人數 / People represented</span>
+      </div>
+      <div class="metric">
+        <strong id="response-total">—</strong>
+        <span>有效問卷回應 / Valid responses</span>
+      </div>
+      <div class="metric">
+        <strong id="emissions-total">—</strong>
+        <span>估算旅程排放（千克二氧化碳當量） / Est. kg CO₂e</span>
+      </div>
     </section>
 
     <div class="layout">
       <section class="panel" aria-labelledby="chart-heading">
-        <h2 id="chart-heading">People by transport method</h2>
-        <p class="section-intro">Bars show the sum of the “Number of people” values in the sheet for each travel method.</p>
-        <div id="transport-chart" role="img" aria-label="Chart of people by transport method">
-          <div class="chart-row" data-mode="walk"><span class="chart-label">Walking / Cycling</span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
-          <div class="chart-row" data-mode="mtr"><span class="chart-label">MTR</span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
-          <div class="chart-row" data-mode="car"><span class="chart-label">Private vehicle</span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
-          <div class="chart-row" data-mode="bus"><span class="chart-label">Bus</span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
-          <div class="chart-row" data-mode="electric"><span class="chart-label">Electric vehicle</span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
+        <h2 id="chart-heading">按交通方式劈分的人數<br><span class="english">People by transport method</span></h2>
+        <p class="section-intro">
+          長條顯示試算表中「參與人數」欄位按交通方式計算的總和。
+          <span class="english">Bars show the sum of the “Number of people” values for each travel method.</span>
+        </p>
+        <div id="transport-chart" role="img" aria-label="各交通方式的人數圖表 / Chart of people by transport method">
+          <div class="chart-row" data-mode="walk"><span class="chart-label">步行／單車<br><span class="english">Walking / Cycling</span></span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
+          <div class="chart-row" data-mode="mtr"><span class="chart-label">港鐵／地鐵<br><span class="english">MTR / Subway</span></span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
+          <div class="chart-row" data-mode="car"><span class="chart-label">私家車／的士<br><span class="english">Private vehicle / Taxi</span></span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
+          <div class="chart-row" data-mode="bus"><span class="chart-label">巴士<br><span class="english">Bus</span></span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
+          <div class="chart-row" data-mode="electric"><span class="chart-label">電動私家車<br><span class="english">Electric vehicle</span></span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
         </div>
-        <p id="load-status" class="status" role="status" aria-live="polite">Loading latest published sheet data…</p>
-        <p class="note">Statistics refresh when the page loads. Google Sheets may take a short time to publish new form responses.</p>
+        <p id="load-status" class="status" role="status" aria-live="polite">正在載入最新的試算表資料… / Loading latest published sheet data…</p>
+        <p class="note">
+          結果會在頁面載入時更新。Google 試算表發佈新的表單回應後，可能需要短時間才會同步。
+          <span class="english">Statistics refresh when this page loads. New form responses may take a short time to appear in Google Sheets.</span>
+        </p>
       </section>
 
       <section class="panel" aria-labelledby="emissions-heading">
-        <h2 id="emissions-heading">Estimated emissions by method</h2>
-        <p class="section-intro">Estimates are computed from each response’s distance and number of people, using illustrative emissions factors.</p>
+        <h2 id="emissions-heading">按交通方式估算排放量<br><span class="english">Estimated emissions by transport method</span></h2>
+        <p class="section-intro">
+          本頁會按試算表中的每個回應，使用距離、人數及示範性排放係數計算估算值。
+          <span class="english">Each response is estimated using distance, number of people and an illustrative emissions factor.</span>
+        </p>
         <div class="table-wrap">
           <table>
-            <thead><tr><th scope="col">Transport</th><th scope="col">People</th><th scope="col">Avg. distance</th><th scope="col">Est. kg CO₂e</th></tr></thead>
+            <thead>
+              <tr>
+                <th scope="col">交通方式<br><span class="english">Transport</span></th>
+                <th scope="col">人數<br><span class="english">People</span></th>
+                <th scope="col">平均距離<br><span class="english">Avg. distance</span></th>
+                <th scope="col">估算千克二氧化碳當量<br><span class="english">Est. kg CO₂e</span></th>
+              </tr>
+            </thead>
             <tbody id="summary-rows">
-              <tr><td>Walking / Cycling</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td>MTR</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td>Private vehicle</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td>Bus</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td>Electric vehicle</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>步行／單車 / Walking / Cycling</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>港鐵 / MTR</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>私家車 / Private vehicle</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>巴士 / Bus</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td>電動私家車 / Electric vehicle</td><td>—</td><td>—</td><td>—</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="note">This is a display-only, dataset-level calculator. It estimates emissions as distance × people × illustrative factor for each response. The sheet does not contain measured emissions, so these values are not official carbon accounting.</p>
+        <p class="note">
+          此為閱讀版及資料集層面的計算器。試算表只提供交通方式、距離及人數，不包含實際碳排放量，因此以下數字不是官方碳核算結果。
+          <span class="english">This is a display-only, dataset-level calculator. The sheet does not contain measured emissions, so these values are not official carbon accounting.</span>
+        </p>
       </section>
     </div>
 
-    <footer>Open Day travel survey · Aggregated results only</footer>
+    <footer>開放日交通問卷 · 只顯示匯總結果 / Open Day travel survey · Aggregated results only</footer>
   </main>
 
   <script>
-    // Google Sheets CSV export for the response tab (gid=117920824).
+    // 已發佈 Google 試算表內指定分頁的 CSV 匯出網址（gid=117920824）。
     const sheetCsvUrl = 'https://docs.google.com/spreadsheets/d/1k7lwLp-4PpO7zjcqJ9FkcLcfDOAAnTRie9jCABRu-LU/gviz/tq?tqx=out:csv&gid=117920824';
+
+    // 示範性排放係數：千克二氧化碳當量／人．公里。
     const modes = {
-      walk: { label: 'Walking / Cycling', aliases: ['walking', 'walk', 'cycling', 'cycle', '步行'], factor: 0 },
-      mtr: { label: 'MTR', aliases: ['mtr', 'subway', 'metro', '地鐵', '地铁'], factor: 0.025 },
-      car: { label: 'Private vehicle', aliases: ['private vehicle', 'private car', 'taxi', '燃油私家車', '私家車', '私家车', 'car'], factor: 0.18 },
-      bus: { label: 'Bus', aliases: ['bus', '巴士'], factor: 0.05 },
-      electric: { label: 'Electric vehicle', aliases: ['electric', '電動', '电动', 'ev'], factor: 0.07 }
+      walk: { label: '步行／單車 / Walking / Cycling', aliases: ['walking', 'walk', 'cycling', 'cycle', '步行', '自行車', '自行车'], factor: 0 },
+      mtr: { label: '港鐵 / MTR', aliases: ['mtr', 'subway', 'metro', '地鐵', '地铁'], factor: 0.025 },
+      car: { label: '私家車 / Private vehicle', aliases: ['private vehicle', 'private car', 'taxi', '燃油私家車', '私家車', '私家车', '私家車', 'car'], factor: 0.18 },
+      bus: { label: '巴士 / Bus', aliases: ['bus', '巴士'], factor: 0.05 },
+      electric: { label: '電動私家車 / Electric vehicle', aliases: ['electric', '電動', '电动', 'ev'], factor: 0.07 }
     };
 
     function parseCsv(text) {
@@ -166,7 +204,6 @@
 
     function classifyMode(value) {
       const text = normalize(value);
-      // Match EV before private vehicle because its label may contain both terms.
       for (const key of ['electric', 'walk', 'mtr', 'bus', 'car']) {
         if (modes[key].aliases.some(alias => text.includes(alias))) return key;
       }
@@ -217,15 +254,17 @@
       const status = document.getElementById('load-status');
       try {
         const response = await fetch(sheetCsvUrl, { cache: 'no-store' });
-        if (!response.ok) throw new Error(`Google Sheets returned HTTP ${response.status}.`);
+        if (!response.ok) throw new Error(`Google 試算表回傳 HTTP ${response.status} / Google Sheets returned HTTP ${response.status}.`);
         const rows = parseCsv(await response.text());
-        if (rows.length < 2) throw new Error('No response rows found in the selected tab.');
+        if (rows.length < 2) throw new Error('已選分頁沒有回應資料 / No response rows found in the selected tab.');
+
         const headers = rows[0].map(normalize);
         const methodColumn = findColumn(headers, [h => h.includes('method of transportation'), h => h.includes('transportation'), h => h.includes('transport method')]);
         const distanceColumn = findColumn(headers, [h => h.includes('estimated distance'), h => h.includes('distance')]);
         const peopleColumn = findColumn(headers, [h => h.includes('number of people'), h => h === 'people', h => h.includes('group size')]);
+
         if (methodColumn < 0 || distanceColumn < 0 || peopleColumn < 0) {
-          throw new Error('Expected columns not found: Method of transportation used, Estimated distance, Number of people.');
+          throw new Error('找不到以下欄位：交通方式、估算距離、參與人數 / Required columns were not found.');
         }
 
         const data = Object.fromEntries(Object.keys(modes).map(key => [key, { people: 0, responses: 0, distanceTotal: 0, emissions: 0 }]));
@@ -243,9 +282,9 @@
         }
         render(data);
         const valid = Object.values(data).reduce((sum, mode) => sum + mode.responses, 0);
-        status.textContent = `${valid} valid response${valid === 1 ? '' : 's'} loaded from the sheet.${skipped ? ` ${skipped} row${skipped === 1 ? ' was' : 's were'} skipped because required values were missing or unrecognized.` : ''}`;
+        status.textContent = `已從試算表載入 ${valid} 個有效回應 / ${valid} valid response${valid === 1 ? '' : 's'} loaded from the sheet.${skipped ? `；已略過 ${skipped} 個資料不完整或無法辨識的列 / ${skipped} incomplete or unrecognized row${skipped === 1 ? ' was' : 's were'} skipped.` : ''}`;
       } catch (error) {
-        status.textContent = `Live results could not be loaded. ${error.message} Ensure the selected sheet tab is published or publicly viewable.`;
+        status.textContent = `無法載入即時結果 / Live results could not be loaded. ${error.message}`;
         status.classList.add('error');
       }
     }
