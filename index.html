@@ -6,116 +6,41 @@
   <meta name="description" content="開放日交通問卷的閱讀版統計及估算碳排放結果。">
   <title>開放日交通問卷 — 結果 / Open Day Travel Survey — Results</title>
   <style>
-    :root {
-      --ink: #1e2a24;
-      --muted: #587066;
-      --green: #2e7d32;
-      --green-dark: #1b5e20;
-      --pale: #e8f5e9;
-      --surface: #fff;
-      --border: #dfe8df;
-      --shadow: 0 12px 28px rgba(24, 52, 35, .08);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: linear-gradient(180deg, #edf5ed, #f9faf7);
-      color: var(--ink);
-      font: 16px/1.6 Arial, "Microsoft JhengHei", "PingFang TC", sans-serif;
-    }
-    .container { width: min(1050px, calc(100% - 32px)); margin: 0 auto; padding: 38px 0 60px; }
-    .hero, .panel, .metric {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-    }
-    .hero { padding: clamp(24px, 5vw, 42px); margin-bottom: 24px; }
-    .eyebrow {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: var(--pale);
-      color: var(--green-dark);
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-    h1 { margin: 14px 0 10px; font-size: clamp(2rem, 5vw, 3.1rem); line-height: 1.12; }
-    h2 { margin: 0 0 8px; font-size: 1.45rem; }
-    p { margin: 0; }
-    .intro, .muted, .status, .note { color: var(--muted); }
-    .intro { max-width: 760px; font-size: 1.06rem; }
-    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
-    .metric { padding: 20px; }
-    .metric strong { display: block; color: var(--green-dark); font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.2; }
-    .metric span { display: block; margin-top: 6px; color: var(--muted); font-size: .92rem; }
-    .bilingual { display: block; }
-    .english { display: block; color: var(--muted); font-size: .78em; font-weight: 400; }
-    .panel { padding: clamp(20px, 3vw, 28px); }
-    .section-intro { margin: 0 0 20px; color: var(--muted); }
-    .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
-    .chart-row { display: grid; grid-template-columns: minmax(105px, 165px) 1fr 54px; gap: 10px; align-items: center; margin: 18px 0; }
-    .chart-label { font-size: .92rem; font-weight: 700; }
-    .bar-track { height: 18px; overflow: hidden; border-radius: 999px; background: #edf2ed; }
-    .bar { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #81c784, var(--green)); transition: width .4s ease; }
-    .chart-count { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
-    .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; font-size: .95rem; }
-    th, td { padding: 12px 10px; border-bottom: 1px solid var(--border); text-align: left; }
-    th { color: var(--muted); font-size: .82rem; }
-    td:not(:first-child), th:not(:first-child) { text-align: right; }
-    .status { min-height: 24px; margin-top: 18px; font-size: .9rem; }
-    .note { margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--border); font-size: .88rem; }
-    .error { color: #8a2c20; }
-    footer { padding-top: 20px; text-align: center; color: var(--muted); font-size: .85rem; }
-    @media (max-width: 720px) {
-      .container { padding-top: 20px; }
-      .metrics { grid-template-columns: 1fr; gap: 12px; }
-      .layout { grid-template-columns: 1fr; }
-      .chart-row { grid-template-columns: 110px 1fr 42px; gap: 7px; }
-      .chart-label { font-size: .82rem; }
-      th, td { padding: 10px 6px; font-size: .84rem; }
-    }
+    :root{--ink:#1e2a24;--muted:#587066;--green:#2e7d32;--dark:#1b5e20;--pale:#e8f5e9;--surface:#fff;--border:#dfe8df;--shadow:0 12px 28px rgba(24,52,35,.08)}
+    *{box-sizing:border-box} body{margin:0;color:var(--ink);background:linear-gradient(180deg,#edf5ed,#f9faf7);font:16px/1.6 Arial,"Microsoft JhengHei","PingFang TC",sans-serif}
+    .container{width:min(1050px,calc(100% - 32px));margin:auto;padding:38px 0 60px}.hero,.panel,.metric{background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow)}.hero{padding:clamp(24px,5vw,42px);margin-bottom:24px}.eyebrow{display:inline-block;padding:6px 12px;border-radius:999px;background:var(--pale);color:var(--dark);font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}h1{margin:14px 0 10px;font-size:clamp(2rem,5vw,3.1rem);line-height:1.12}h2{margin:0 0 8px;font-size:1.45rem}p{margin:0}.intro,.muted,.status,.note{color:var(--muted)}.intro{max-width:760px;font-size:1.06rem}.english{display:block;color:var(--muted);font-size:.78em;font-weight:400}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}.metric{padding:20px}.metric strong{display:block;color:var(--dark);font-size:clamp(1.5rem,3vw,2rem);line-height:1.2}.metric span{display:block;margin-top:6px;color:var(--muted);font-size:.92rem}.layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}.panel{padding:clamp(20px,3vw,28px)}.section-intro{margin:0 0 20px;color:var(--muted)}
+    .qr-panel{display:flex;gap:22px;align-items:center;margin-bottom:24px}.qr-panel img{width:150px;height:150px;border:8px solid white;box-shadow:0 2px 8px #0002}.qr-copy{flex:1}.qr-link{display:inline-block;margin-top:10px;color:var(--dark);font-weight:700;overflow-wrap:anywhere}.chart-row{display:grid;grid-template-columns:minmax(105px,165px) 1fr 54px;gap:10px;align-items:center;margin:18px 0}.chart-label{font-size:.92rem;font-weight:700}.bar-track{height:18px;overflow:hidden;border-radius:999px;background:#edf2ed}.bar{width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#81c784,var(--green));transition:width .4s ease}.chart-count{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{padding:12px 10px;border-bottom:1px solid var(--border);text-align:left}th{color:var(--muted);font-size:.82rem}td:not(:first-child),th:not(:first-child){text-align:right}.status{min-height:24px;margin-top:18px;font-size:.9rem}.note{margin-top:18px;padding-top:15px;border-top:1px solid var(--border);font-size:.88rem}.error{color:#8a2c20}footer{padding-top:20px;text-align:center;color:var(--muted);font-size:.85rem}
+    @media(max-width:720px){.container{padding-top:20px}.metrics{grid-template-columns:1fr;gap:12px}.layout{grid-template-columns:1fr}.qr-panel{align-items:flex-start;flex-direction:column}.chart-row{grid-template-columns:110px 1fr 42px;gap:7px}.chart-label{font-size:.82rem}th,td{padding:10px 6px;font-size:.84rem}}
   </style>
 </head>
 <body>
   <main class="container">
     <header class="hero">
       <span class="eyebrow">開放日計劃 / Open Day Project</span>
-      <h1>
-        我們以甚麼方式到校？
-        <span class="english">How do we travel to school?</span>
-      </h1>
-      <p class="intro">
-        此頁面是交通問卷的閱讀版摘要。以下統計資料及估算碳排放量會在載入頁面時直接由已發佈的 Google 試算表計算；本頁不會顯示個別回應內容。
-        <span class="english">This is a read-only summary of the travel survey. Statistics and estimated emissions are calculated from the published Google Sheet when this page loads; individual responses are not displayed.</span>
-      </p>
+      <h1>我們以甚麼方式到校？<span class="english">How do we travel to school?</span></h1>
+      <p class="intro">此頁面是交通問卷的閱讀版摘要。統計資料及估算碳排放量會由已發佈的 Google 試算表計算；本頁不會顯示個別回應內容。<span class="english">This is a read-only summary of the travel survey. Statistics and estimated emissions are calculated from the published Google Sheet; individual responses are not displayed.</span></p>
     </header>
 
+    <section class="panel qr-panel" aria-labelledby="form-heading">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fforms.gle%2FZCCusVbEJMCPHUd46" alt="交通問卷 QR code / Transport survey QR code" width="150" height="150">
+      <div class="qr-copy">
+        <h2 id="form-heading">填寫交通問卷 <span class="english">Complete the travel survey</span></h2>
+        <p class="muted">掃描 QR code 填寫問卷，協助我們收集開放日交通資料。</p>
+        <p class="english">Scan the QR code to complete the survey and help us collect Open Day travel data.</p>
+        <a class="qr-link" href="https://forms.gle/ZCCusVbEJMCPHUd46">https://forms.gle/ZCCusVbEJMCPHUd46</a>
+      </div>
+    </section>
+
     <section class="metrics" aria-label="問卷概覽 / Survey overview">
-      <div class="metric">
-        <strong id="people-total">—</strong>
-        <span>回應中代表的人數 / People represented</span>
-      </div>
-      <div class="metric">
-        <strong id="response-total">—</strong>
-        <span>有效問卷回應 / Valid responses</span>
-      </div>
-      <div class="metric">
-        <strong id="emissions-total">—</strong>
-        <span>估算旅程排放（千克二氧化碳當量） / Est. kg CO₂e</span>
-      </div>
+      <div class="metric"><strong id="people-total">—</strong><span>回應中代表的人數 / People represented</span></div>
+      <div class="metric"><strong id="response-total">—</strong><span>有效問卷回應 / Valid responses</span></div>
+      <div class="metric"><strong id="emissions-total">—</strong><span>估算旅程排放（千克二氧化碳當量） / Est. kg CO₂e</span></div>
     </section>
 
     <div class="layout">
       <section class="panel" aria-labelledby="chart-heading">
-        <h2 id="chart-heading">按交通方式劈分的人數<br><span class="english">People by transport method</span></h2>
-        <p class="section-intro">
-          長條顯示試算表中「參與人數」欄位按交通方式計算的總和。
-          <span class="english">Bars show the sum of the “Number of people” values for each travel method.</span>
-        </p>
+        <h2 id="chart-heading">按交通方式劃分的人數<span class="english">People by transport method</span></h2>
+        <p class="section-intro">長條顯示試算表中「Number of people」欄位的總和。<span class="english">Bars show the sum of the “Number of people” values.</span></p>
         <div id="transport-chart" role="img" aria-label="各交通方式的人數圖表 / Chart of people by transport method">
           <div class="chart-row" data-mode="walk"><span class="chart-label">步行／單車<br><span class="english">Walking / Cycling</span></span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
           <div class="chart-row" data-mode="mtr"><span class="chart-label">港鐵／地鐵<br><span class="english">MTR / Subway</span></span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
@@ -123,173 +48,34 @@
           <div class="chart-row" data-mode="bus"><span class="chart-label">巴士<br><span class="english">Bus</span></span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
           <div class="chart-row" data-mode="electric"><span class="chart-label">電動私家車<br><span class="english">Electric vehicle</span></span><div class="bar-track"><div class="bar"></div></div><span class="chart-count">—</span></div>
         </div>
-        <p id="load-status" class="status" role="status" aria-live="polite">正在載入最新的試算表資料… / Loading latest published sheet data…</p>
-        <p class="note">
-          結果會在頁面載入時更新。Google 試算表發佈新的表單回應後，可能需要短時間才會同步。
-          <span class="english">Statistics refresh when this page loads. New form responses may take a short time to appear in Google Sheets.</span>
-        </p>
+        <p id="load-status" class="status" role="status">正在載入試算表資料… / Loading sheet data…</p>
       </section>
 
       <section class="panel" aria-labelledby="emissions-heading">
-        <h2 id="emissions-heading">按交通方式估算排放量<br><span class="english">Estimated emissions by transport method</span></h2>
-        <p class="section-intro">
-          本頁會按試算表中的每個回應，使用距離、人數及示範性排放係數計算估算值。
-          <span class="english">Each response is estimated using distance, number of people and an illustrative emissions factor.</span>
-        </p>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">交通方式<br><span class="english">Transport</span></th>
-                <th scope="col">人數<br><span class="english">People</span></th>
-                <th scope="col">平均距離<br><span class="english">Avg. distance</span></th>
-                <th scope="col">估算千克二氧化碳當量<br><span class="english">Est. kg CO₂e</span></th>
-              </tr>
-            </thead>
-            <tbody id="summary-rows">
-              <tr><td>步行／單車 / Walking / Cycling</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td>港鐵 / MTR</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td>私家車 / Private vehicle</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td>巴士 / Bus</td><td>—</td><td>—</td><td>—</td></tr>
-              <tr><td>電動私家車 / Electric vehicle</td><td>—</td><td>—</td><td>—</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="note">
-          此為閱讀版及資料集層面的計算器。試算表只提供交通方式、距離及人數，不包含實際碳排放量，因此以下數字不是官方碳核算結果。
-          <span class="english">This is a display-only, dataset-level calculator. The sheet does not contain measured emissions, so these values are not official carbon accounting.</span>
-        </p>
+        <h2 id="emissions-heading">按交通方式估算排放量<span class="english">Estimated emissions by transport method</span></h2>
+        <p class="section-intro">使用每個回應的距離、人數及示範性排放係數計算。<span class="english">Calculated from distance, people and illustrative emissions factors.</span></p>
+        <div class="table-wrap"><table><thead><tr><th>交通方式<br><span class="english">Transport</span></th><th>人數<br><span class="english">People</span></th><th>平均距離<br><span class="english">Avg. distance</span></th><th>估算 kg CO₂e</th></tr></thead><tbody id="summary-rows"></tbody></table></div>
+        <p class="note">試算表不包含實際碳排放量，以下數字是估算值，不是官方碳核算結果。<span class="english">The sheet contains no measured emissions, so these are estimates, not official carbon accounting.</span></p>
       </section>
     </div>
-
     <footer>開放日交通問卷 · 只顯示匯總結果 / Open Day travel survey · Aggregated results only</footer>
   </main>
 
   <script>
-    // 已發佈 Google 試算表內指定分頁的 CSV 匯出網址（gid=117920824）。
-    const sheetCsvUrl = 'https://docs.google.com/spreadsheets/d/1k7lwLp-4PpO7zjcqJ9FkcLcfDOAAnTRie9jCABRu-LU/gviz/tq?tqx=out:csv&gid=117920824';
-
-    // 示範性排放係數：千克二氧化碳當量／人．公里。
-    const modes = {
-      walk: { label: '步行／單車 / Walking / Cycling', aliases: ['walking', 'walk', 'cycling', 'cycle', '步行', '自行車', '自行车'], factor: 0 },
-      mtr: { label: '港鐵 / MTR', aliases: ['mtr', 'subway', 'metro', '地鐵', '地铁'], factor: 0.025 },
-      car: { label: '私家車 / Private vehicle', aliases: ['private vehicle', 'private car', 'taxi', '燃油私家車', '私家車', '私家车', '私家車', 'car'], factor: 0.18 },
-      bus: { label: '巴士 / Bus', aliases: ['bus', '巴士'], factor: 0.05 },
-      electric: { label: '電動私家車 / Electric vehicle', aliases: ['electric', '電動', '电动', 'ev'], factor: 0.07 }
+    const sheetCsvUrl='https://docs.google.com/spreadsheets/d/1k7lwLp-4PpO7zjcqJ9FkcLcfDOAAnTRie9jCABRu-LU/gviz/tq?tqx=out:csv&gid=117920824';
+    const modes={
+      walk:{label:'步行／單車 / Walking / Cycling',aliases:['walking','walk','cycling','cycle','步行','自行車','自行车'],factor:0},
+      mtr:{label:'港鐵 / MTR',aliases:['mtr','subway','metro','地鐵','地铁'],factor:.025},
+      car:{label:'私家車 / Private vehicle',aliases:['private vehicle','private car','taxi','燃油私家車','私家車','私家车','car'],factor:.18},
+      bus:{label:'巴士 / Bus',aliases:['bus','巴士'],factor:.05},
+      electric:{label:'電動私家車 / Electric vehicle',aliases:['electric','電動','电动','ev'],factor:.07}
     };
-
-    function parseCsv(text) {
-      const rows = [];
-      let row = [], cell = '', quoted = false;
-      for (let i = 0; i < text.length; i++) {
-        const ch = text[i];
-        if (ch === '"' && quoted && text[i + 1] === '"') { cell += '"'; i++; }
-        else if (ch === '"') quoted = !quoted;
-        else if (ch === ',' && !quoted) { row.push(cell); cell = ''; }
-        else if ((ch === '\n' || ch === '\r') && !quoted) {
-          if (ch === '\r' && text[i + 1] === '\n') i++;
-          row.push(cell);
-          if (row.some(value => value.trim() !== '')) rows.push(row);
-          row = []; cell = '';
-        } else cell += ch;
-      }
-      row.push(cell);
-      if (row.some(value => value.trim() !== '')) rows.push(row);
-      return rows;
-    }
-
-    function normalize(value) {
-      return String(value || '').trim().toLowerCase().replace(/^\uFEFF/, '');
-    }
-
-    function classifyMode(value) {
-      const text = normalize(value);
-      for (const key of ['electric', 'walk', 'mtr', 'bus', 'car']) {
-        if (modes[key].aliases.some(alias => text.includes(alias))) return key;
-      }
-      return null;
-    }
-
-    function numeric(value) {
-      const cleaned = String(value || '').replace(/,/g, '').replace(/[^0-9.\-]/g, '');
-      const result = Number(cleaned);
-      return cleaned && Number.isFinite(result) ? result : NaN;
-    }
-
-    function findColumn(headers, tests) {
-      return headers.findIndex(header => tests.some(test => test(header)));
-    }
-
-    function render(data) {
-      const counts = Object.fromEntries(Object.keys(modes).map(key => [key, data[key].people]));
-      const max = Math.max(1, ...Object.values(counts));
-      document.querySelectorAll('.chart-row').forEach(item => {
-        const count = counts[item.dataset.mode] || 0;
-        item.querySelector('.chart-count').textContent = count.toLocaleString();
-        item.querySelector('.bar').style.width = count ? `${Math.max(2, count / max * 100)}%` : '0%';
-      });
-
-      let peopleTotal = 0, responseTotal = 0, emissionsTotal = 0;
-      const tbody = document.getElementById('summary-rows');
-      tbody.replaceChildren();
-      for (const [key, mode] of Object.entries(modes)) {
-        const stats = data[key];
-        peopleTotal += stats.people;
-        responseTotal += stats.responses;
-        emissionsTotal += stats.emissions;
-        const tr = document.createElement('tr');
-        [mode.label, stats.people.toLocaleString(), stats.responses ? `${(stats.distanceTotal / stats.responses).toFixed(1)} km` : '—', stats.emissions.toFixed(2)].forEach(value => {
-          const td = document.createElement('td');
-          td.textContent = value;
-          tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
-      }
-      document.getElementById('people-total').textContent = peopleTotal.toLocaleString();
-      document.getElementById('response-total').textContent = responseTotal.toLocaleString();
-      document.getElementById('emissions-total').textContent = emissionsTotal.toFixed(2);
-    }
-
-    async function loadSheetSummary() {
-      const status = document.getElementById('load-status');
-      try {
-        const response = await fetch(sheetCsvUrl, { cache: 'no-store' });
-        if (!response.ok) throw new Error(`Google 試算表回傳 HTTP ${response.status} / Google Sheets returned HTTP ${response.status}.`);
-        const rows = parseCsv(await response.text());
-        if (rows.length < 2) throw new Error('已選分頁沒有回應資料 / No response rows found in the selected tab.');
-
-        const headers = rows[0].map(normalize);
-        const methodColumn = findColumn(headers, [h => h.includes('method of transportation'), h => h.includes('transportation'), h => h.includes('transport method')]);
-        const distanceColumn = findColumn(headers, [h => h.includes('estimated distance'), h => h.includes('distance')]);
-        const peopleColumn = findColumn(headers, [h => h.includes('number of people'), h => h === 'people', h => h.includes('group size')]);
-
-        if (methodColumn < 0 || distanceColumn < 0 || peopleColumn < 0) {
-          throw new Error('找不到以下欄位：交通方式、估算距離、參與人數 / Required columns were not found.');
-        }
-
-        const data = Object.fromEntries(Object.keys(modes).map(key => [key, { people: 0, responses: 0, distanceTotal: 0, emissions: 0 }]));
-        let skipped = 0;
-        for (const row of rows.slice(1)) {
-          const modeKey = classifyMode(row[methodColumn]);
-          const distance = numeric(row[distanceColumn]);
-          const people = numeric(row[peopleColumn]);
-          if (!modeKey || !Number.isFinite(distance) || distance < 0 || !Number.isFinite(people) || people < 0) { skipped++; continue; }
-          const mode = data[modeKey];
-          mode.people += people;
-          mode.responses++;
-          mode.distanceTotal += distance;
-          mode.emissions += distance * people * modes[modeKey].factor;
-        }
-        render(data);
-        const valid = Object.values(data).reduce((sum, mode) => sum + mode.responses, 0);
-        status.textContent = `已從試算表載入 ${valid} 個有效回應 / ${valid} valid response${valid === 1 ? '' : 's'} loaded from the sheet.${skipped ? `；已略過 ${skipped} 個資料不完整或無法辨識的列 / ${skipped} incomplete or unrecognized row${skipped === 1 ? ' was' : 's were'} skipped.` : ''}`;
-      } catch (error) {
-        status.textContent = `無法載入即時結果 / Live results could not be loaded. ${error.message}`;
-        status.classList.add('error');
-      }
-    }
-
-    loadSheetSummary();
+    function parseCsv(text){const rows=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'&&quoted&&text[i+1]==='"'){cell+='"';i++}else if(c==='"')quoted=!quoted;else if(c===','&&!quoted){row.push(cell);cell=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i++;row.push(cell);if(row.some(v=>v.trim()))rows.push(row);row=[];cell=''}else cell+=c}row.push(cell);if(row.some(v=>v.trim()))rows.push(row);return rows}
+    function norm(v){return String(v||'').trim().toLowerCase().replace(/^\uFEFF/,'')}
+    function modeOf(v){const t=norm(v);for(const k of ['electric','walk','mtr','bus','car'])if(modes[k].aliases.some(a=>t.includes(a)))return k;return null}
+    function number(v){const s=String(v||'').replace(/,/g,'').replace(/[^0-9.\-]/g,'');const n=Number(s);return s&&Number.isFinite(n)?n:NaN}
+    function render(data){const counts=Object.fromEntries(Object.keys(modes).map(k=>[k,data[k].people]));const max=Math.max(1,...Object.values(counts));document.querySelectorAll('.chart-row').forEach(r=>{const n=counts[r.dataset.mode]||0;r.querySelector('.chart-count').textContent=n.toLocaleString();r.querySelector('.bar').style.width=n?`${Math.max(2,n/max*100)}%`:'0%'});let people=0,responses=0,emissions=0;const body=document.getElementById('summary-rows');body.replaceChildren();for(const [k,m] of Object.entries(modes)){const s=data[k];people+=s.people;responses+=s.responses;emissions+=s.emissions;const tr=document.createElement('tr');[m.label,s.people.toLocaleString(),s.responses?`${(s.distance/s.responses).toFixed(1)} km`:'—',s.emissions.toFixed(2)].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});body.appendChild(tr)}document.getElementById('people-total').textContent=people.toLocaleString();document.getElementById('response-total').textContent=responses.toLocaleString();document.getElementById('emissions-total').textContent=emissions.toFixed(2)}
+    async function load(){const status=document.getElementById('load-status');try{const response=await fetch(sheetCsvUrl,{cache:'no-store'});if(!response.ok)throw Error(`Google Sheets HTTP ${response.status}`);const rows=parseCsv(await response.text());if(rows.length<2)throw Error('No response rows found');const h=rows[0].map(norm);const mi=h.findIndex(x=>x.includes('method of transportation')||x.includes('transportation'));const di=h.findIndex(x=>x.includes('estimated distance')||x.includes('distance'));const pi=h.findIndex(x=>x.includes('number of people')||x==='people'||x.includes('group size'));if(mi<0||di<0||pi<0)throw Error('Expected transport, distance and people columns were not found');const data=Object.fromEntries(Object.keys(modes).map(k=>[k,{people:0,responses:0,distance:0,emissions:0}]));for(const row of rows.slice(1)){const k=modeOf(row[mi]),d=number(row[di]),p=number(row[pi]);if(!k||!Number.isFinite(d)||d<0||!Number.isFinite(p)||p<0)continue;data[k].people+=p;data[k].responses++;data[k].distance+=d;data[k].emissions+=d*p*modes[k].factor}render(data);status.textContent='已從試算表載入資料 / Results loaded from the published sheet.'}catch(e){status.textContent=`無法載入即時結果 / Live results could not be loaded: ${e.message}`;status.classList.add('error')}}load();
   </script>
 </body>
 </html>
